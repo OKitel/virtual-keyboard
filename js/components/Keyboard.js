@@ -14,7 +14,7 @@ export default class Keyboard {
     this.keyboard = keyboard;
   }
 
-  lang = 'en';
+  lang = localStorage.getItem('lang');
 
   class = 'keyboard';
 
