@@ -13,7 +13,7 @@
   min-height: 40px;
   min-width: 40px;
   margin: 2px;
-  border-radius: 2px;
+  border-radius: 5%;
 
   display: flex;
   justify-content: center;
@@ -24,6 +24,20 @@
   color: $color-keys-text;
 
   transition: ease-in-out 0.2s;
+
+  &:not(.pressed) {
+    animation: circle-to-square 0.3s ease-in-out forwards;
+
+    @keyframes circle-to-square {
+      0% {
+        border-radius: 50%;
+      }
+
+      100% {
+        border-radius: 5%;
+      }
+    }
+  }
 
   &:hover {
     background-color: $color-key-hover;
@@ -38,4 +52,15 @@
 
 .pressed {
   background-color: $color-key-pressed;
+  animation: square-to-circle 0.3s ease-in-out forwards;
+
+  @keyframes square-to-circle {
+    5% {
+      border-radius: 5%;
+    }
+
+    100% {
+      border-radius: 50%;
+    }
+  }
 }
