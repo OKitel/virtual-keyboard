@@ -11,7 +11,7 @@ export default class Key {
 
     const spanCaseUp = document.createElement('span');
     spanCaseUp.classList.add('case-up', 'hidden');
-    spanCaseUp.textContent = key.shiftKey;
+    spanCaseUp.textContent = key.shiftKey || key.key;
 
     const spanCaps = document.createElement('span');
     spanCaps.classList.add('caps', 'hidden');

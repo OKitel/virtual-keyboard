@@ -38,7 +38,7 @@ export default class Keyboard {
     const keyEl = event.target.closest('.keyboard__key');
     if (keyEl) {
       const keyCode = keyEl.dataset.code;
-      console.log(keyCode);
+      console.log(keyCode, 'TODO textarea insert');
     }
   }
 
@@ -48,6 +48,12 @@ export default class Keyboard {
       const keyCode = keyEl.dataset.code;
       const key = document.querySelector(`.${keyCode}`);
       key.classList.add('pressed');
+      if (keyCode === 'ShiftLeft' || keyCode === 'ShiftRight') {
+        const ups = document.querySelectorAll('.case-up');
+        ups.forEach((item) => item.classList.remove('hidden'));
+        const downs = document.querySelectorAll('.case-down');
+        downs.forEach((item) => item.classList.add('hidden'));
+      }
     }
   }
 
@@ -57,6 +63,12 @@ export default class Keyboard {
       const keyCode = keyEl.dataset.code;
       const key = document.querySelector(`.${keyCode}`);
       key.classList.remove('pressed');
+      if (keyCode === 'ShiftLeft' || keyCode === 'ShiftRight') {
+        const downs = document.querySelectorAll('.case-down');
+        downs.forEach((item) => item.classList.remove('hidden'));
+        const ups = document.querySelectorAll('.case-up');
+        ups.forEach((item) => item.classList.add('hidden'));
+      }
     }
   }
 

@@ -15,9 +15,8 @@ const handleHidden = () => {
 };
 
 export const handleKeyDown = (event) => {
-  const { key } = event.key;
+  const { key } = event;
   const keyCode = event.code;
-
   const actKey = document.querySelector(`.${keyCode}`);
   actKey.classList.add('pressed');
 
@@ -29,6 +28,13 @@ export const handleKeyDown = (event) => {
     isAltPressed = true;
   }
 
+  if (key === 'Shift') {
+    const ups = document.querySelectorAll('.case-up');
+    ups.forEach((item) => item.classList.remove('hidden'));
+    const downs = document.querySelectorAll('.case-down');
+    downs.forEach((item) => item.classList.add('hidden'));
+  }
+
   if (isAltPressed && isCtrlPressed) {
     lang = lang === 'en' ? 'ru' : 'en';
     handleHidden();
@@ -36,7 +42,7 @@ export const handleKeyDown = (event) => {
 };
 
 export const handleKeyUp = (event) => {
-  const { key } = event.key;
+  const { key } = event;
 
   const keyCode = event.code;
 
@@ -48,5 +54,12 @@ export const handleKeyUp = (event) => {
   }
   if (key === 'Alt') {
     isAltPressed = false;
+  }
+
+  if (key === 'Shift') {
+    const downs = document.querySelectorAll('.case-down');
+    downs.forEach((item) => item.classList.remove('hidden'));
+    const ups = document.querySelectorAll('.case-up');
+    ups.forEach((item) => item.classList.add('hidden'));
   }
 };
