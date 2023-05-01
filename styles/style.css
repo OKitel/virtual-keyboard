@@ -463,4 +463,8 @@ ul {
   padding: 5px;
 }
 
+.pressed {
+  background-color: #714bfc;
+}
+
 /*# sourceMappingURL=style.css.map */

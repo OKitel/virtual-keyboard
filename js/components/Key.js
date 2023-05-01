@@ -1,36 +1,51 @@
 export default class Key {
-  constructor(key) {
-    this.key = key;
+  constructor(keyEn, keyRu) {
+    this.keyEn = keyEn;
+    this.keyRu = keyRu;
+  }
+
+  static createSpans(key, lang) {
+    const spanCaseDown = document.createElement('span');
+    spanCaseDown.classList.add('case-down');
+    spanCaseDown.textContent = key.key;
+
+    const spanCaseUp = document.createElement('span');
+    spanCaseUp.classList.add('case-up', 'hidden');
+    spanCaseUp.textContent = key.shiftKey;
+
+    const spanCaps = document.createElement('span');
+    spanCaps.classList.add('caps', 'hidden');
+    spanCaps.textContent = key.capsKey;
+
+    const spanShiftCaps = document.createElement('span');
+    spanShiftCaps.classList.add('shift-caps', 'hidden');
+    spanShiftCaps.textContent = key.key;
+
+    const span = document.createElement('span');
+    span.classList.add(lang);
+    if (lang === 'ru') {
+      span.classList.add('hidden');
+    }
+
+    span.appendChild(spanCaseDown);
+    span.appendChild(spanCaseUp);
+    span.appendChild(spanCaps);
+    span.appendChild(spanShiftCaps);
+
+    return span;
   }
 
   build() {
     const key = document.createElement('div');
-    key.classList.add('keyboard__key', `${this.key.code}`);
-    const spanEng = document.createElement('span');
-    spanEng.classList.add('eng');
+    key.classList.add('keyboard__key', `${this.keyEn.code}`);
+    key.dataset.code = this.keyEn.code;
 
-    const spanCaseDown = document.createElement('span');
-    spanCaseDown.classList.add('case-down');
-    spanCaseDown.textContent = this.key.key;
-
-    const spanCaseUp = document.createElement('span');
-    spanCaseUp.classList.add('case-up', 'hidden');
-    spanCaseUp.textContent = this.key.shiftKey;
-
-    const spanCaps = document.createElement('span');
-    spanCaps.classList.add('caps', 'hidden');
-    spanCaps.textContent = this.key.capsKey;
-
-    const spanShiftCaps = document.createElement('span');
-    spanShiftCaps.classList.add('shift-caps', 'hidden');
-    spanShiftCaps.textContent = this.key.key;
-
-    spanEng.appendChild(spanCaseDown);
-    spanEng.appendChild(spanCaseUp);
-    spanEng.appendChild(spanCaps);
-    spanEng.appendChild(spanShiftCaps);
+    const spanEng = Key.createSpans(this.keyEn, 'eng');
+    const spanRu = Key.createSpans(this.keyRu, 'ru');
 
     key.appendChild(spanEng);
+    key.appendChild(spanRu);
+
     return key;
   }
 }

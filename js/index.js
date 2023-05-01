@@ -2,6 +2,7 @@ import Title from './components/Title.js';
 import Textarea from './components/Textarea.js';
 import Keyboard from './components/Keyboard.js';
 import Text from './components/Text.js';
+import { handleKeyDown, handleKeyUp } from './helpers/keyboardEvents.js';
 
 const body = document.getElementsByTagName('body')[0];
 body.classList.add('body');
@@ -19,3 +20,8 @@ wrapper.appendChild(title.build());
 wrapper.appendChild(textarea.build());
 wrapper.appendChild(keyboard.build());
 wrapper.appendChild(text.build());
+
+keyboard.addListener();
+
+document.addEventListener('keydown', handleKeyDown);
+document.addEventListener('keyup', handleKeyUp);
