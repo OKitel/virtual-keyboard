@@ -26,6 +26,10 @@ export const handleKeyDown = (event) => {
   const { key } = event;
   const keyCode = event.code;
   const actKey = document.querySelector(`.${keyCode}`);
+
+  if (!actKey) {
+    return;
+  }
   actKey.classList.add('pressed');
 
   insertChar(key);
@@ -85,6 +89,11 @@ export const handleKeyUp = (event) => {
   const keyCode = event.code;
 
   const actKey = document.querySelector(`.${keyCode}`);
+
+  if (!actKey) {
+    return;
+  }
+
   if (key !== 'CapsLock') {
     actKey.classList.remove('pressed');
   }
