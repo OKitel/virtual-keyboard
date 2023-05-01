@@ -21,7 +21,7 @@ wrapper.appendChild(textarea.build());
 wrapper.appendChild(keyboard.build());
 wrapper.appendChild(text.build());
 
-keyboard.addListener();
+keyboard.addListeners();
 
 document.addEventListener('keydown', handleKeyDown);
 document.addEventListener('keyup', handleKeyUp);

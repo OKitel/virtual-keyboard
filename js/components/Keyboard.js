@@ -35,12 +35,34 @@ export default class Keyboard {
   }
 
   static handleClick(event) {
-    const key = event.target.closest('.keyboard__key');
-    const keyCode = key.dataset.code;
-    console.log(keyCode);
+    const keyEl = event.target.closest('.keyboard__key');
+    if (keyEl) {
+      const keyCode = keyEl.dataset.code;
+      console.log(keyCode);
+    }
   }
 
-  addListener() {
+  static handleMouseDown(event) {
+    const keyEl = event.target.closest('.keyboard__key');
+    if (keyEl) {
+      const keyCode = keyEl.dataset.code;
+      const key = document.querySelector(`.${keyCode}`);
+      key.classList.add('pressed');
+    }
+  }
+
+  static handleMouseUp(event) {
+    const keyEl = event.target.closest('.keyboard__key');
+    if (keyEl) {
+      const keyCode = keyEl.dataset.code;
+      const key = document.querySelector(`.${keyCode}`);
+      key.classList.remove('pressed');
+    }
+  }
+
+  addListeners() {
     this.keyboard.addEventListener('click', Keyboard.handleClick);
+    this.keyboard.addEventListener('mousedown', Keyboard.handleMouseDown);
+    this.keyboard.addEventListener('mouseup', Keyboard.handleMouseUp);
   }
 }
