@@ -1,0 +1,32 @@
+.keyboard {
+  padding: 5px;
+  background-color: $color-keyboard;
+  border-radius: 5px;
+  border: 2px solid $color-key;
+}
+
+.keyboard__row {
+  display: flex;
+}
+
+.keyboard__key {
+  min-height: 40px;
+  min-width: 40px;
+  margin: 2px;
+  border-radius: 2px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+
+  background-color: $color-key;
+  color: $color-keys-text;
+
+  transition: ease-in-out 0.2s;
+
+  &:hover {
+    background-color: $color-key-hover;
+    cursor: pointer;
+  }
+}

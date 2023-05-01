@@ -1,4 +1,9 @@
 .body {
   @extend %font;
+  font-weight: 400;
   background-color: $color-background;
+}
+
+.hidden {
+  display: none;
 }
