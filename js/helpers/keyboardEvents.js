@@ -1,4 +1,4 @@
-let lang = localStorage.getItem('lang');
+let lang = localStorage.getItem('lang') || 'en';
 let isCtrlPressed = false;
 let isAltPressed = false;
 let isCapsPressed = false;
