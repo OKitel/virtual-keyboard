@@ -458,4 +458,9 @@ ul {
   cursor: pointer;
 }
 
+.eng,
+.ru {
+  padding: 5px;
+}
+
 /*# sourceMappingURL=style.css.map */
