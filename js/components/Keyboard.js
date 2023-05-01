@@ -18,7 +18,7 @@ export default class Keyboard {
 
   class = 'keyboard';
 
-  rows = 5;
+  isCapsPressed = false;
 
   static prepareRow(keysEn, keysRu) {
     const row = document.createElement('div');
@@ -48,11 +48,31 @@ export default class Keyboard {
       const keyCode = keyEl.dataset.code;
       const key = document.querySelector(`.${keyCode}`);
       key.classList.add('pressed');
+
       if (keyCode === 'ShiftLeft' || keyCode === 'ShiftRight') {
         const ups = document.querySelectorAll('.case-up');
         ups.forEach((item) => item.classList.remove('hidden'));
         const downs = document.querySelectorAll('.case-down');
         downs.forEach((item) => item.classList.add('hidden'));
+      }
+
+      if (keyCode === 'CapsLock') {
+        if (!this.isCapsPressed) {
+          const caps = document.querySelectorAll('.caps');
+          caps.forEach((item) => item.classList.remove('hidden'));
+          const downs = document.querySelectorAll('.case-down');
+          downs.forEach((item) => item.classList.add('hidden'));
+          const ups = document.querySelectorAll('.case-up');
+          ups.forEach((item) => item.classList.add('hidden'));
+          this.isCapsPressed = true;
+        } else {
+          const caps = document.querySelectorAll('.caps');
+          caps.forEach((item) => item.classList.add('hidden'));
+          const downs = document.querySelectorAll('.case-down');
+          downs.forEach((item) => item.classList.remove('hidden'));
+          key.classList.remove('pressed');
+          this.isCapsPressed = false;
+        }
       }
     }
   }
@@ -62,7 +82,10 @@ export default class Keyboard {
     if (keyEl) {
       const keyCode = keyEl.dataset.code;
       const key = document.querySelector(`.${keyCode}`);
-      key.classList.remove('pressed');
+      if (keyCode !== 'CapsLock') {
+        key.classList.remove('pressed');
+      }
+
       if (keyCode === 'ShiftLeft' || keyCode === 'ShiftRight') {
         const downs = document.querySelectorAll('.case-down');
         downs.forEach((item) => item.classList.remove('hidden'));

@@ -15,7 +15,7 @@ export default class Key {
 
     const spanCaps = document.createElement('span');
     spanCaps.classList.add('caps', 'hidden');
-    spanCaps.textContent = key.capsKey;
+    spanCaps.textContent = key.capsKey || key.key;
 
     const spanShiftCaps = document.createElement('span');
     spanShiftCaps.classList.add('shift-caps', 'hidden');

@@ -1,6 +1,7 @@
 let lang = 'en';
 let isCtrlPressed = false;
 let isAltPressed = false;
+let isCapsPressed = false;
 
 const handleHidden = () => {
   const spansEng = document.querySelectorAll('.eng');
@@ -35,6 +36,25 @@ export const handleKeyDown = (event) => {
     downs.forEach((item) => item.classList.add('hidden'));
   }
 
+  if (key === 'CapsLock') {
+    if (!isCapsPressed) {
+      const caps = document.querySelectorAll('.caps');
+      caps.forEach((item) => item.classList.remove('hidden'));
+      const downs = document.querySelectorAll('.case-down');
+      downs.forEach((item) => item.classList.add('hidden'));
+      const ups = document.querySelectorAll('.case-up');
+      ups.forEach((item) => item.classList.add('hidden'));
+      isCapsPressed = true;
+    } else {
+      const caps = document.querySelectorAll('.caps');
+      caps.forEach((item) => item.classList.add('hidden'));
+      const downs = document.querySelectorAll('.case-down');
+      downs.forEach((item) => item.classList.remove('hidden'));
+      actKey.classList.remove('pressed');
+      isCapsPressed = false;
+    }
+  }
+
   if (isAltPressed && isCtrlPressed) {
     lang = lang === 'en' ? 'ru' : 'en';
     handleHidden();
@@ -47,7 +67,9 @@ export const handleKeyUp = (event) => {
   const keyCode = event.code;
 
   const actKey = document.querySelector(`.${keyCode}`);
-  actKey.classList.remove('pressed');
+  if (key !== 'CapsLock') {
+    actKey.classList.remove('pressed');
+  }
 
   if (key === 'Control') {
     isCtrlPressed = false;
