@@ -6,7 +6,7 @@ export default class Keyboard {
     const keyboard = document.createElement('div');
     keyboard.classList.add(this.class);
 
-    for (let i = 0; i < qwertyLayout[this.lang].length; i += 1) {
+    for (let i = 0; i < qwertyLayout.en.length; i += 1) {
       keyboard.appendChild(
         Keyboard.prepareRow(qwertyLayout.en[i], qwertyLayout.ru[i]),
       );
