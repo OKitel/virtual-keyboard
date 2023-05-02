@@ -25,6 +25,8 @@
 
   transition: ease-in-out 0.2s;
 
+  user-select: none;
+
   &:not(.pressed) {
     animation: circle-to-square 0.3s ease-in-out forwards;
 
