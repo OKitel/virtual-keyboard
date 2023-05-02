@@ -10,7 +10,7 @@ export default class Keyboard {
 
     for (let i = 0; i < qwertyLayout.en.length; i += 1) {
       keyboard.appendChild(
-        Keyboard.prepareRow(qwertyLayout.en[i], qwertyLayout.ru[i]),
+        Keyboard.prepareRow(qwertyLayout.en[i], qwertyLayout.ru[i])
       );
     }
     this.keyboard = keyboard;
@@ -64,6 +64,9 @@ export default class Keyboard {
         }
         if (pressedKey.code === 'Backspace') {
           deleteChar();
+        }
+        if (pressedKey.code === 'CapsLock') {
+          store.isCapsPressed = true;
         }
       }
     }
