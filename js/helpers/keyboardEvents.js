@@ -1,3 +1,5 @@
+import qwertyLayout from '../layout/qwerty.js';
+
 let lang = localStorage.getItem('lang') || 'en';
 let isCtrlPressed = false;
 let isAltPressed = false;
@@ -22,6 +24,13 @@ const insertChar = (char) => {
   textarea.value = modifiedValue;
 };
 
+const deleteChar = () => {
+  const textarea = document.getElementById('keyboard-input');
+  const curValue = textarea.value;
+  const modifiedValue = curValue.substring(0, curValue.length - 1);
+  textarea.value = modifiedValue;
+};
+
 export const handleKeyDown = (event) => {
   const { key } = event;
   const keyCode = event.code;
@@ -32,7 +41,24 @@ export const handleKeyDown = (event) => {
   }
   actKey.classList.add('pressed');
 
-  insertChar(key);
+  const layout = qwertyLayout[lang].flat();
+  const pressedKey = layout.find((el) => el.code === keyCode);
+  if (!pressedKey) return;
+  event.preventDefault();
+
+  if (!pressedKey.isModifier) {
+    insertChar(pressedKey.key);
+  } else {
+    if (pressedKey.code === 'Tab') {
+      insertChar('\t');
+    }
+    if (pressedKey.code === 'Enter') {
+      insertChar('\n');
+    }
+    if (pressedKey.code === 'Backspace') {
+      deleteChar();
+    }
+  }
 
   if (key === 'Control') {
     isCtrlPressed = true;
