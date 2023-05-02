@@ -4,7 +4,9 @@ export default class Key {
     this.keyRu = keyRu;
   }
 
-  static createSpans(key, lang) {
+  lang = localStorage.getItem('lang') || 'en';
+
+  createSpans(key, lang) {
     const spanCaseDown = document.createElement('span');
     spanCaseDown.classList.add('case-down');
     spanCaseDown.textContent = key.key;
@@ -23,7 +25,7 @@ export default class Key {
 
     const span = document.createElement('span');
     span.classList.add(lang);
-    if (lang === 'ru') {
+    if (this.lang !== lang) {
       span.classList.add('hidden');
     }
 
@@ -40,8 +42,8 @@ export default class Key {
     key.classList.add('keyboard__key', `${this.keyEn.code}`);
     key.dataset.code = this.keyEn.code;
 
-    const spanEng = Key.createSpans(this.keyEn, 'eng');
-    const spanRu = Key.createSpans(this.keyRu, 'ru');
+    const spanEng = this.createSpans(this.keyEn, 'en');
+    const spanRu = this.createSpans(this.keyRu, 'ru');
 
     key.appendChild(spanEng);
     key.appendChild(spanRu);

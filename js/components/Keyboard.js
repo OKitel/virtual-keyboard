@@ -14,8 +14,6 @@ export default class Keyboard {
     this.keyboard = keyboard;
   }
 
-  lang = localStorage.getItem('lang') || 'en';
-
   class = 'keyboard';
 
   isCapsPressed = false;

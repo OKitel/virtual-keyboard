@@ -4,7 +4,7 @@ let isAltPressed = false;
 let isCapsPressed = false;
 
 const handleHidden = () => {
-  const spansEng = document.querySelectorAll('.eng');
+  const spansEng = document.querySelectorAll('.en');
   const spansRu = document.querySelectorAll('.ru');
   if (lang === 'en') {
     spansEng.forEach((item) => item.classList.remove('hidden'));
