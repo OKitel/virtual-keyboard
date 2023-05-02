@@ -468,6 +468,12 @@ const qwertyLayout = {
         capsKey: ']',
         code: 'BracketRight',
       },
+      {
+        key: '\\',
+        shiftKey: '/',
+        capsKey: '\\',
+        code: 'Backslash',
+      },
       { key: 'Delete', code: 'Delete', isModifier: true },
     ],
     // 3rd row
