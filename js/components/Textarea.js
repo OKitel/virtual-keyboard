@@ -24,15 +24,20 @@ export default class Textarea {
     this.textarea.value = modifiedValue;
     this.textarea.selectionStart = cursorPosition + 1;
     this.textarea.selectionEnd = cursorPosition + 1;
+    this.textarea.focus();
   }
 
   deleteChar = (key) => {
     const cursorPosition = this.textarea.selectionStart;
     const curValue = this.textarea.value;
-    const beforeCursor = curValue.slice(0, this.textarea.selectionStart);
+    const beforeCursor = curValue.slice(0, cursorPosition);
     const afterCursor = curValue.slice(this.textarea.selectionEnd);
 
-    if (key === 'Backspace') {
+    if (this.textarea.selectionStart !== this.textarea.selectionEnd) {
+      this.textarea.value = beforeCursor + afterCursor;
+      this.textarea.selectionStart = cursorPosition;
+      this.textarea.selectionEnd = cursorPosition;
+    } else if (key === 'Backspace') {
       const modifiedValue = beforeCursor.substring(0, beforeCursor.length - 1) + afterCursor;
       this.textarea.value = modifiedValue;
       this.textarea.selectionStart = cursorPosition - 1;
@@ -43,6 +48,7 @@ export default class Textarea {
       this.textarea.selectionStart = cursorPosition;
       this.textarea.selectionEnd = cursorPosition;
     }
+    this.textarea.focus();
   };
 
   build() {
