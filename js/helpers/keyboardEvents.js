@@ -69,17 +69,23 @@ export const handleKeyDown = (event) => {
   }
 
   if (key === 'Shift' && !store.isCapsPressed) {
-    const ups = document.querySelectorAll('.case-up');
-    ups.forEach((item) => item.classList.remove('hidden'));
     const downs = document.querySelectorAll('.case-down');
     downs.forEach((item) => item.classList.add('hidden'));
+    const caps = document.querySelectorAll('.caps');
+    caps.forEach((item) => item.classList.add('hidden'));
+    const shiftCaps = document.querySelectorAll('.shift-caps');
+    shiftCaps.forEach((item) => item.classList.add('hidden'));
+    const ups = document.querySelectorAll('.case-up');
+    ups.forEach((item) => item.classList.remove('hidden'));
   } else if (key === 'Shift' && store.isCapsPressed) {
     const ups = document.querySelectorAll('.case-up');
     ups.forEach((item) => item.classList.add('hidden'));
     const downs = document.querySelectorAll('.case-down');
-    downs.forEach((item) => item.classList.remove('hidden'));
+    downs.forEach((item) => item.classList.add('hidden'));
     const caps = document.querySelectorAll('.caps');
     caps.forEach((item) => item.classList.add('hidden'));
+    const shiftCaps = document.querySelectorAll('.shift-caps');
+    shiftCaps.forEach((item) => item.classList.remove('hidden'));
   }
 
   if (key === 'Shift') {
@@ -136,15 +142,21 @@ export const handleKeyUp = (event) => {
   }
 
   if (key === 'Shift' && !store.isCapsPressed) {
-    const downs = document.querySelectorAll('.case-down');
-    downs.forEach((item) => item.classList.remove('hidden'));
     const ups = document.querySelectorAll('.case-up');
     ups.forEach((item) => item.classList.add('hidden'));
+    const caps = document.querySelectorAll('.caps');
+    caps.forEach((item) => item.classList.add('hidden'));
+    const shiftCaps = document.querySelectorAll('.shift-caps');
+    shiftCaps.forEach((item) => item.classList.add('hidden'));
+    const downs = document.querySelectorAll('.case-down');
+    downs.forEach((item) => item.classList.remove('hidden'));
   } else if (key === 'Shift' && store.isCapsPressed) {
     const downs = document.querySelectorAll('.case-down');
     downs.forEach((item) => item.classList.add('hidden'));
     const ups = document.querySelectorAll('.case-up');
     ups.forEach((item) => item.classList.add('hidden'));
+    const shiftCaps = document.querySelectorAll('.shift-caps');
+    shiftCaps.forEach((item) => item.classList.add('hidden'));
     const caps = document.querySelectorAll('.caps');
     caps.forEach((item) => item.classList.remove('hidden'));
   }
