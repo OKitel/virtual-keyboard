@@ -13,20 +13,6 @@ const handleHidden = () => {
   }
 };
 
-export const insertChar = (char) => {
-  const textarea = document.getElementById('keyboard-input');
-  const curValue = textarea.value;
-  const modifiedValue = curValue + char;
-  textarea.value = modifiedValue;
-};
-
-export const deleteChar = () => {
-  const textarea = document.getElementById('keyboard-input');
-  const curValue = textarea.value;
-  const modifiedValue = curValue.substring(0, curValue.length - 1);
-  textarea.value = modifiedValue;
-};
-
 export const handleKeyDown = (event) => {
   const { key } = event;
   const keyCode = event.code;
@@ -44,30 +30,33 @@ export const handleKeyDown = (event) => {
 
   if (!pressedKey.isModifier) {
     if (!store.isCapsPressed && !store.isShiftPressed) {
-      insertChar(pressedKey.key);
+      store.textarea.insertChar(pressedKey.key);
     } else if (store.isCapsPressed && store.isShiftPressed) {
       if (pressedKey.key === pressedKey.capsKey) {
-        insertChar(pressedKey.shiftKey || pressedKey.key);
+        store.textarea.insertChar(pressedKey.shiftKey || pressedKey.key);
       } else {
-        insertChar(pressedKey.key);
+        store.textarea.insertChar(pressedKey.key);
       }
     } else if (store.isShiftPressed) {
-      insertChar(pressedKey.shiftKey || pressedKey.key);
+      store.textarea.insertChar(pressedKey.shiftKey || pressedKey.key);
     } else if (store.isCapsPressed) {
-      insertChar(pressedKey.capsKey || pressedKey.key);
+      store.textarea.insertChar(pressedKey.capsKey || pressedKey.key);
     }
   } else {
     if (pressedKey.code === 'Tab') {
-      insertChar('\t');
+      store.textarea.insertChar('\t');
     }
     if (pressedKey.code === 'Enter') {
-      insertChar('\n');
+      store.textarea.insertChar('\n');
     }
     if (pressedKey.code === 'MetaLeft') {
-      insertChar('⊞');
+      store.textarea.insertChar('⊞');
     }
     if (pressedKey.code === 'Backspace') {
-      deleteChar();
+      store.textarea.deleteChar(pressedKey.code);
+    }
+    if (pressedKey.code === 'Delete') {
+      store.textarea.deleteChar(pressedKey.code);
     }
   }
 

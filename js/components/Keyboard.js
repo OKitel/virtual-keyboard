@@ -1,6 +1,5 @@
 import Key from './Key.js';
 import qwertyLayout from '../layout/qwerty.js';
-import { insertChar, deleteChar } from '../helpers/keyboardEvents.js';
 import store from '../shared/store.js';
 
 export default class Keyboard {
@@ -43,33 +42,36 @@ export default class Keyboard {
 
       if (!pressedKey.isModifier) {
         if (!store.isCapsPressed && !store.isShiftPressed) {
-          insertChar(pressedKey.key);
+          store.textarea.insertChar(pressedKey.key);
         } else if (store.isCapsPressed && store.isShiftPressed) {
           if (pressedKey.key === pressedKey.capsKey) {
-            insertChar(pressedKey.shiftKey || pressedKey.key);
+            store.textarea.insertChar(pressedKey.shiftKey || pressedKey.key);
           } else {
-            insertChar(pressedKey.key);
+            store.textarea.insertChar(pressedKey.key);
           }
         } else if (store.isShiftPressed) {
-          insertChar(pressedKey.shiftKey || pressedKey.key);
+          store.textarea.insertChar(pressedKey.shiftKey || pressedKey.key);
         } else if (store.isCapsPressed) {
-          insertChar(pressedKey.capsKey || pressedKey.key);
+          store.textarea.insertChar(pressedKey.capsKey || pressedKey.key);
         }
       } else {
         if (pressedKey.code === 'Tab') {
-          insertChar('\t');
+          store.textarea.insertChar('\t');
         }
         if (pressedKey.code === 'Enter') {
-          insertChar('\n');
+          store.textarea.insertChar('\n');
         }
         if (pressedKey.code === 'Backspace') {
-          deleteChar();
+          store.textarea.deleteChar(pressedKey.code);
+        }
+        if (pressedKey.code === 'Delete') {
+          store.textarea.deleteChar(pressedKey.code);
         }
         if (pressedKey.code === 'CapsLock') {
           store.isCapsPressed = !store.isCapsPressed;
         }
         if (pressedKey.code === 'MetaLeft') {
-          insertChar('⊞');
+          store.textarea.insertChar('⊞');
         }
       }
     }
