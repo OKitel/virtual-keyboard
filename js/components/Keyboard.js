@@ -1,5 +1,7 @@
 import Key from './Key.js';
 import qwertyLayout from '../layout/qwerty.js';
+import { insertChar, deleteChar } from '../helpers/keyboardEvents.js';
+import store from '../shared/store.js';
 
 export default class Keyboard {
   constructor() {
@@ -15,8 +17,6 @@ export default class Keyboard {
   }
 
   class = 'keyboard';
-
-  isCapsPressed = false;
 
   static prepareRow(keysEn, keysRu) {
     const row = document.createElement('div');
@@ -36,7 +36,36 @@ export default class Keyboard {
     const keyEl = event.target.closest('.keyboard__key');
     if (keyEl) {
       const keyCode = keyEl.dataset.code;
-      console.log(keyCode, 'TODO textarea insert');
+      const layout = qwertyLayout[store.lang].flat();
+      const pressedKey = layout.find((el) => el.code === keyCode);
+      if (!pressedKey) return;
+      event.preventDefault();
+
+      if (!pressedKey.isModifier) {
+        if (!store.isCapsPressed && !store.isShiftPressed) {
+          insertChar(pressedKey.key);
+        } else if (store.isCapsPressed && store.isShiftPressed) {
+          if (pressedKey.key === pressedKey.capsKey) {
+            insertChar(pressedKey.shiftKey);
+          } else {
+            insertChar(pressedKey.key);
+          }
+        } else if (store.isShiftPressed) {
+          insertChar(pressedKey.shiftKey);
+        } else if (store.isCapsPressed) {
+          insertChar(pressedKey.capsKey);
+        }
+      } else {
+        if (pressedKey.code === 'Tab') {
+          insertChar('\t');
+        }
+        if (pressedKey.code === 'Enter') {
+          insertChar('\n');
+        }
+        if (pressedKey.code === 'Backspace') {
+          deleteChar();
+        }
+      }
     }
   }
 
@@ -94,7 +123,7 @@ export default class Keyboard {
   }
 
   addListeners() {
-    this.keyboard.addEventListener('click', Keyboard.handleClick);
+    this.keyboard.addEventListener('click', Keyboard.handleClick.bind(this));
     this.keyboard.addEventListener('mousedown', Keyboard.handleMouseDown);
     this.keyboard.addEventListener('mouseup', Keyboard.handleMouseUp);
   }

@@ -1,31 +1,26 @@
 import qwertyLayout from '../layout/qwerty.js';
-
-let lang = localStorage.getItem('lang') || 'en';
-let isCtrlPressed = false;
-let isAltPressed = false;
-let isCapsPressed = false;
-let isShiftPressed = false;
+import store from '../shared/store.js';
 
 const handleHidden = () => {
   const spansEng = document.querySelectorAll('.en');
   const spansRu = document.querySelectorAll('.ru');
-  if (lang === 'en') {
+  if (store.lang === 'en') {
     spansEng.forEach((item) => item.classList.remove('hidden'));
     spansRu.forEach((item) => item.classList.add('hidden'));
-  } else if (lang === 'ru') {
+  } else if (store.lang === 'ru') {
     spansRu.forEach((item) => item.classList.remove('hidden'));
     spansEng.forEach((item) => item.classList.add('hidden'));
   }
 };
 
-const insertChar = (char) => {
+export const insertChar = (char) => {
   const textarea = document.getElementById('keyboard-input');
   const curValue = textarea.value;
   const modifiedValue = curValue + char;
   textarea.value = modifiedValue;
 };
 
-const deleteChar = () => {
+export const deleteChar = () => {
   const textarea = document.getElementById('keyboard-input');
   const curValue = textarea.value;
   const modifiedValue = curValue.substring(0, curValue.length - 1);
@@ -42,23 +37,23 @@ export const handleKeyDown = (event) => {
   }
   actKey.classList.add('pressed');
 
-  const layout = qwertyLayout[lang].flat();
+  const layout = qwertyLayout[store.lang].flat();
   const pressedKey = layout.find((el) => el.code === keyCode);
   if (!pressedKey) return;
   event.preventDefault();
 
   if (!pressedKey.isModifier) {
-    if (!isCapsPressed && !isShiftPressed) {
+    if (!store.isCapsPressed && !store.isShiftPressed) {
       insertChar(pressedKey.key);
-    } else if (isCapsPressed && isShiftPressed) {
+    } else if (store.isCapsPressed && store.isShiftPressed) {
       if (pressedKey.key === pressedKey.capsKey) {
         insertChar(pressedKey.shiftKey);
       } else {
         insertChar(pressedKey.key);
       }
-    } else if (isShiftPressed) {
+    } else if (store.isShiftPressed) {
       insertChar(pressedKey.shiftKey);
-    } else if (isCapsPressed) {
+    } else if (store.isCapsPressed) {
       insertChar(pressedKey.capsKey);
     }
   } else {
@@ -74,19 +69,19 @@ export const handleKeyDown = (event) => {
   }
 
   if (key === 'Control') {
-    isCtrlPressed = true;
+    store.isCtrlPressed = true;
   }
 
   if (key === 'Alt') {
-    isAltPressed = true;
+    store.isAltPressed = true;
   }
 
-  if (key === 'Shift' && !isCapsPressed) {
+  if (key === 'Shift' && !store.isCapsPressed) {
     const ups = document.querySelectorAll('.case-up');
     ups.forEach((item) => item.classList.remove('hidden'));
     const downs = document.querySelectorAll('.case-down');
     downs.forEach((item) => item.classList.add('hidden'));
-  } else if (key === 'Shift' && isCapsPressed) {
+  } else if (key === 'Shift' && store.isCapsPressed) {
     const ups = document.querySelectorAll('.case-up');
     ups.forEach((item) => item.classList.add('hidden'));
     const downs = document.querySelectorAll('.case-down');
@@ -96,32 +91,32 @@ export const handleKeyDown = (event) => {
   }
 
   if (key === 'Shift') {
-    isShiftPressed = true;
+    store.isShiftPressed = true;
   }
 
   if (key === 'CapsLock') {
-    if (!isCapsPressed) {
+    if (!store.isCapsPressed) {
       const caps = document.querySelectorAll('.caps');
       caps.forEach((item) => item.classList.remove('hidden'));
       const downs = document.querySelectorAll('.case-down');
       downs.forEach((item) => item.classList.add('hidden'));
       const ups = document.querySelectorAll('.case-up');
       ups.forEach((item) => item.classList.add('hidden'));
-      isCapsPressed = true;
+      store.isCapsPressed = true;
     } else {
       const caps = document.querySelectorAll('.caps');
       caps.forEach((item) => item.classList.add('hidden'));
       const downs = document.querySelectorAll('.case-down');
       downs.forEach((item) => item.classList.remove('hidden'));
       actKey.classList.remove('pressed');
-      isCapsPressed = false;
+      store.isCapsPressed = false;
     }
   }
 
-  if (isAltPressed && isCtrlPressed) {
-    const temp = lang === 'en' ? 'ru' : 'en';
+  if (store.isAltPressed && store.isCtrlPressed) {
+    const temp = store.lang === 'en' ? 'ru' : 'en';
     localStorage.setItem('lang', temp);
-    lang = localStorage.getItem('lang');
+    store.lang = localStorage.getItem('lang');
     handleHidden();
   }
 };
@@ -142,18 +137,18 @@ export const handleKeyUp = (event) => {
   }
 
   if (key === 'Control') {
-    isCtrlPressed = false;
+    store.isCtrlPressed = false;
   }
   if (key === 'Alt') {
-    isAltPressed = false;
+    store.isAltPressed = false;
   }
 
-  if (key === 'Shift' && !isCapsPressed) {
+  if (key === 'Shift' && !store.isCapsPressed) {
     const downs = document.querySelectorAll('.case-down');
     downs.forEach((item) => item.classList.remove('hidden'));
     const ups = document.querySelectorAll('.case-up');
     ups.forEach((item) => item.classList.add('hidden'));
-  } else if (key === 'Shift' && isCapsPressed) {
+  } else if (key === 'Shift' && store.isCapsPressed) {
     const downs = document.querySelectorAll('.case-down');
     downs.forEach((item) => item.classList.add('hidden'));
     const ups = document.querySelectorAll('.case-up');
@@ -163,6 +158,6 @@ export const handleKeyUp = (event) => {
   }
 
   if (key === 'Shift') {
-    isShiftPressed = false;
+    store.isShiftPressed = false;
   }
 };
