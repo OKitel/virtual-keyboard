@@ -4,6 +4,7 @@ let lang = localStorage.getItem('lang') || 'en';
 let isCtrlPressed = false;
 let isAltPressed = false;
 let isCapsPressed = false;
+let isShiftPressed = false;
 
 const handleHidden = () => {
   const spansEng = document.querySelectorAll('.en');
@@ -47,7 +48,19 @@ export const handleKeyDown = (event) => {
   event.preventDefault();
 
   if (!pressedKey.isModifier) {
-    insertChar(pressedKey.key);
+    if (!isCapsPressed && !isShiftPressed) {
+      insertChar(pressedKey.key);
+    } else if (isCapsPressed && isShiftPressed) {
+      if (pressedKey.key === pressedKey.capsKey) {
+        insertChar(pressedKey.shiftKey);
+      } else {
+        insertChar(pressedKey.key);
+      }
+    } else if (isShiftPressed) {
+      insertChar(pressedKey.shiftKey);
+    } else if (isCapsPressed) {
+      insertChar(pressedKey.capsKey);
+    }
   } else {
     if (pressedKey.code === 'Tab') {
       insertChar('\t');
@@ -80,6 +93,10 @@ export const handleKeyDown = (event) => {
     downs.forEach((item) => item.classList.remove('hidden'));
     const caps = document.querySelectorAll('.caps');
     caps.forEach((item) => item.classList.add('hidden'));
+  }
+
+  if (key === 'Shift') {
+    isShiftPressed = true;
   }
 
   if (key === 'CapsLock') {
@@ -143,5 +160,9 @@ export const handleKeyUp = (event) => {
     ups.forEach((item) => item.classList.add('hidden'));
     const caps = document.querySelectorAll('.caps');
     caps.forEach((item) => item.classList.remove('hidden'));
+  }
+
+  if (key === 'Shift') {
+    isShiftPressed = false;
   }
 };
