@@ -1,0 +1,72 @@
+.keyboard {
+  padding: 5px;
+  background-color: $color-keyboard;
+  border-radius: 5px;
+  border: 2px solid $color-key;
+}
+
+.keyboard__row {
+  display: flex;
+}
+
+.keyboard__key {
+  min-height: 40px;
+  min-width: 40px;
+  margin: 2px;
+  border-radius: 5%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+
+  background-color: $color-key;
+  color: $color-keys-text;
+
+  transition: ease-in-out 0.2s;
+
+  user-select: none;
+
+  &:not(.pressed) {
+    animation: circle-to-square 0.3s ease-in-out forwards;
+
+    @keyframes circle-to-square {
+      0% {
+        border-radius: 50%;
+      }
+
+      100% {
+        border-radius: 5%;
+      }
+    }
+  }
+
+  &:hover {
+    background-color: $color-key-hover;
+    cursor: pointer;
+  }
+}
+
+.en,
+.ru {
+  padding: 5px;
+}
+
+.pressed {
+  background-color: $color-key-pressed;
+  animation: square-to-circle 0.3s ease-in-out forwards;
+
+  @keyframes square-to-circle {
+    5% {
+      border-radius: 5%;
+    }
+
+    100% {
+      border-radius: 50%;
+    }
+  }
+}
+
+.Space {
+  min-width: 400px;
+}
