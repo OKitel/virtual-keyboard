@@ -126,5 +126,13 @@ export default class Keyboard {
     this.keyboard.addEventListener('click', Keyboard.handleClick.bind(this));
     this.keyboard.addEventListener('mousedown', Keyboard.handleMouseDown);
     this.keyboard.addEventListener('mouseup', Keyboard.handleMouseUp);
+    document.addEventListener('mouseup', () => {
+      const keys = document.querySelectorAll('.keyboard__key');
+      keys.forEach((item) => {
+        if (!item.classList.contains('CapsLock')) {
+          item.classList.remove('pressed');
+        }
+      });
+    });
   }
 }
