@@ -21,7 +21,7 @@ export default class Key {
 
     const spanShiftCaps = document.createElement('span');
     spanShiftCaps.classList.add('shift-caps', 'hidden');
-    spanShiftCaps.textContent = key.shiftKey || key.key;
+    spanShiftCaps.textContent = key.shiftKey === key.capsKey ? key.key : key.shiftKey;
 
     const span = document.createElement('span');
     span.classList.add(lang);
