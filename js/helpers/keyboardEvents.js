@@ -47,14 +47,14 @@ export const handleKeyDown = (event) => {
       insertChar(pressedKey.key);
     } else if (store.isCapsPressed && store.isShiftPressed) {
       if (pressedKey.key === pressedKey.capsKey) {
-        insertChar(pressedKey.shiftKey);
+        insertChar(pressedKey.shiftKey || pressedKey.key);
       } else {
         insertChar(pressedKey.key);
       }
     } else if (store.isShiftPressed) {
-      insertChar(pressedKey.shiftKey);
+      insertChar(pressedKey.shiftKey || pressedKey.key);
     } else if (store.isCapsPressed) {
-      insertChar(pressedKey.capsKey);
+      insertChar(pressedKey.capsKey || pressedKey.key);
     }
   } else {
     if (pressedKey.code === 'Tab') {
@@ -62,6 +62,9 @@ export const handleKeyDown = (event) => {
     }
     if (pressedKey.code === 'Enter') {
       insertChar('\n');
+    }
+    if (pressedKey.code === 'MetaLeft') {
+      insertChar('⊞');
     }
     if (pressedKey.code === 'Backspace') {
       deleteChar();

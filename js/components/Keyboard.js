@@ -10,7 +10,7 @@ export default class Keyboard {
 
     for (let i = 0; i < qwertyLayout.en.length; i += 1) {
       keyboard.appendChild(
-        Keyboard.prepareRow(qwertyLayout.en[i], qwertyLayout.ru[i])
+        Keyboard.prepareRow(qwertyLayout.en[i], qwertyLayout.ru[i]),
       );
     }
     this.keyboard = keyboard;
@@ -46,14 +46,14 @@ export default class Keyboard {
           insertChar(pressedKey.key);
         } else if (store.isCapsPressed && store.isShiftPressed) {
           if (pressedKey.key === pressedKey.capsKey) {
-            insertChar(pressedKey.shiftKey);
+            insertChar(pressedKey.shiftKey || pressedKey.key);
           } else {
             insertChar(pressedKey.key);
           }
         } else if (store.isShiftPressed) {
-          insertChar(pressedKey.shiftKey);
+          insertChar(pressedKey.shiftKey || pressedKey.key);
         } else if (store.isCapsPressed) {
-          insertChar(pressedKey.capsKey);
+          insertChar(pressedKey.capsKey || pressedKey.key);
         }
       } else {
         if (pressedKey.code === 'Tab') {
@@ -66,7 +66,10 @@ export default class Keyboard {
           deleteChar();
         }
         if (pressedKey.code === 'CapsLock') {
-          store.isCapsPressed = true;
+          store.isCapsPressed = !store.isCapsPressed;
+        }
+        if (pressedKey.code === 'MetaLeft') {
+          insertChar('⊞');
         }
       }
     }
