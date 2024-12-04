@@ -1,0 +1,28 @@
+{
+  "name": "virtual-keyboard",
+  "version": "1.0.0",
+  "description": "RS School virtual keyboard task",
+  "main": "index.js",
+  "scripts": {
+    "style": "sass --watch styles/style.scss styles/style.css",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OKitel/virtual-keyboard.git"
+  },
+  "keywords": [
+    "keyboard"
+  ],
+  "author": "Olga Kitel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OKitel/virtual-keyboard/issues"
+  },
+  "homepage": "https://github.com/OKitel/virtual-keyboard#readme",
+  "devDependencies": {
+    "eslint": "^8.39.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5"
+  }
+}
